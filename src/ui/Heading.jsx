@@ -9,6 +9,7 @@ const number = 10;
 //
 //   /* ${test} */
 //   /* font-size: ${number > 20 ? '20px' : '10px'}; */
+// /* background-color: yellow; */
 
 const Heading = styled.h1`
   ${(props) =>
@@ -31,8 +32,6 @@ const Heading = styled.h1`
       font-size: 2rem;
       font-weight: 500;
     `}
-
-  background-color: yellow;
 `;
 
 export default Heading;
