@@ -15,13 +15,19 @@ function App() {
     <>
       <GlobalStyles />
       <StyledApp>
-        <Row type='vertical'>
+        <Row>
           <Row type='horizontal'>
             <Heading as='h1'>Hello World</Heading>
             <Button onClick={() => alert('Check In')}>Check in</Button>
-            <Button onClick={() => alert('Check Out')}>Check Out</Button>
+            <Button
+              variation='secondary'
+              size='medium'
+              onClick={() => alert('Check Out')}
+            >
+              Check Out
+            </Button>
           </Row>
-          <Row type='vertical'>
+          <Row>
             <Heading as='h2'>Check In Check Out</Heading>
             <Heading as='h3'>Form</Heading>
             <Input
