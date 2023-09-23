@@ -36,8 +36,8 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data) {
-    // console.log(data);
-    mutate(data);
+    console.log(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -108,7 +108,9 @@ function CreateCabinForm() {
           {...register('discount', {
             required: 'Discount is required',
             validate: (value) =>
-              value <= getValues().regularPrice ||
+              //   Number(value) <= Number(getValues().regularPrice) ||
+              //   'Regular Price should be greater than discount',
+              +value <= +getValues().regularPrice ||
               'Regular Price should be greater than discount',
           })}
         />
@@ -134,13 +136,16 @@ function CreateCabinForm() {
           id='image'
           accept='image/*'
           disabled={isCreating}
+          {...register('image', {
+            required: 'Image is required',
+          })}
         />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button
-          variation='secondary'
+          $variation='secondary'
           type='reset'
           disabled={isCreating}
         >
