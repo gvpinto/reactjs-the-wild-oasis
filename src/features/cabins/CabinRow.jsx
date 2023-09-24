@@ -1,11 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { formatCurrency } from '../../utils/helpers';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteCabin } from '../../services/apiCabins';
-import toast from 'react-hot-toast';
 import CreateCabinForm from './CreateCabinForm';
-import { useState } from 'react';
-import Button from '../../ui/Button';
+import { useDeleteCabin } from './useDeleteCabin';
 
 const TableRow = styled.div`
   display: grid;
@@ -47,24 +44,8 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  const queryClient = useQueryClient();
-
   const [showEdit, setShowEdit] = useState(false);
-
-  // Need to setup up the Policy in Supabase
-  const { isLoading: isDeleting, mutate } = useMutation({
-    // mutationFn: (id) => deleteCabin(id)
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success('Cabin successfully deleted');
-      queryClient.invalidateQueries({
-        queryKey: ['cabins'],
-      });
-    },
-    onError: (e) => {
-      toast.error(e.message);
-    },
-  });
+  const { isDeleting, deleteCabin } = useDeleteCabin();
 
   const {
     id: cabinId,
@@ -81,12 +62,16 @@ function CabinRow({ cabin }) {
         <Cabin>{name}</Cabin>
         <div>fits upto {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
           <button onClick={() => setShowEdit((show) => !show)}>Edit</button>
           <button
             disabled={isDeleting}
-            onClick={() => mutate(cabinId)}
+            onClick={() => deleteCabin(cabinId)}
           >
             Delete
           </button>
