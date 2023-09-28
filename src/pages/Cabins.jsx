@@ -5,9 +5,9 @@ import { getCabins } from '../services/apiCabins';
 import CabinTable from '../features/cabins/CabinTable';
 import CreateCabinForm from '../features/cabins/CreateCabinForm';
 import Button from '../ui/Button';
+import AddCabin from '../features/cabins/AddCabin';
 
 function Cabins() {
-  const [showForm, setShowForm] = useState(false);
   //   useEffect(function () {
   //     getCabins().then((data) => console.log(data));
   //   }, []);
@@ -19,10 +19,7 @@ function Cabins() {
       </Row>
       <Row>
         <CabinTable />
-      </Row>
-      <Row>
-        <Button onClick={() => setShowForm((show) => !show)}>Add Cabin</Button>
-        {showForm && <CreateCabinForm />}
+        <AddCabin />
       </Row>
     </>
   );
