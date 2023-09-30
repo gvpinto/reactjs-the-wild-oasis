@@ -95,13 +95,14 @@ function Row({ children }) {
   );
 }
 
-function Body({ children }) {
-  const columns = useContext(TableContext);
-  return <StyledBody columns={columns}>{children}</StyledBody>;
+function Body({ data, render }) {
+  if (!data.length) return <Empty>No data available</Empty>;
+  return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 Table.Header = Header;
 Table.Row = Row;
+Table.Body = Body;
 Table.Footer = Footer;
 
 export default Table;
