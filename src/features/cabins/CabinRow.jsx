@@ -106,12 +106,12 @@ function CabinRow({ cabin }) {
                 onCloseModal={() => setShowEdit((show) => !show)}
               />
             </Modal.Window>
-            <Modal.Open>
+            <Modal.Open opens='delete'>
               <button>
                 <HiTrash />
               </button>
             </Modal.Open>
-            <Modal.Window>
+            <Modal.Window name='delete'>
               <ConfirmDelete
                 disabled={isDeleting}
                 onConfirm={() => deleteCabin(cabinId)}
