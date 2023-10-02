@@ -1,4 +1,5 @@
 import Filter from '../../ui/Filter';
+import SortBy from '../../ui/SortBy';
 import TableOperations from '../../ui/TableOperations';
 
 function CabinTableOperations() {
@@ -13,6 +14,7 @@ function CabinTableOperations() {
         options={filterOptions}
         filterField='discount'
       />
+      <SortBy />
     </TableOperations>
   );
 }
