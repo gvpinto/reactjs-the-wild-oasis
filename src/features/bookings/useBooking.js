@@ -10,7 +10,7 @@ export function useBooking() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['booking'],
+    queryKey: ['booking', bookingId],
     // Query function Should be a Promise (async).
     // It could also be a direct fetch
     queryFn: () => getBooking(bookingId),
