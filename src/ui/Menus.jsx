@@ -36,8 +36,8 @@ const StyledList = styled.ul`
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  right: ${(props) => props.$position.x}px;
+  top: ${(props) => props.$position.y}px;
 `;
 
 const StyledButton = styled.button`
@@ -99,7 +99,7 @@ function Toggle({ id }) {
   function handleClick(e) {
     e.stopPropagation();
     const rect = e.target.closest('button').getBoundingClientRect();
-    console.log(window.innerWidth - rect.width - rect.x);
+    // console.log(window.innerWidth - rect.width - rect.x);
 
     setPosition(() => ({
       x: window.innerWidth - rect.width - rect.x,
@@ -122,7 +122,7 @@ function List({ children, id }) {
 
   return createPortal(
     <StyledList
-      position={position}
+      $position={position}
       ref={ref}
     >
       {children}
