@@ -5,12 +5,21 @@ import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
 import Pagination from '../../ui/Pagination';
+import { useSearchParams } from 'react-router-dom';
 
 function BookingTable() {
-  const { bookings, isLoading, error } = useBookings();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { bookings, isLoading, error, count } = useBookings();
 
   if (isLoading) return <Spinner />;
-  if (!bookings.length) return <Empty resource='bookings' />;
+
+  //   if (error) {
+  //     searchParams.set('page', 1);
+  //     setSearchParams(searchParams);
+  //   }
+
+  if (!bookings?.length || error) return <Empty resource='bookings' />;
 
   //   const bookings = [];
 
@@ -36,7 +45,7 @@ function BookingTable() {
           )}
         />
         <Table.Footer>
-          <Pagination count={12} />
+          <Pagination count={count} />
         </Table.Footer>
       </Table>
     </Menus>
