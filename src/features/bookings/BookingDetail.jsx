@@ -1,18 +1,19 @@
 import styled from 'styled-components';
-
-import BookingDataBox from './BookingDataBox';
-import Row from '../../ui/Row';
-import Heading from '../../ui/Heading';
-import Tag from '../../ui/Tag';
-import ButtonGroup from '../../ui/ButtonGroup';
-import Button from '../../ui/Button';
-import ButtonText from '../../ui/ButtonText';
-import CheckBox from '../../ui/CheckBox';
-
 import { useMoveBack } from '../../hooks/useMoveBack';
+import { useCheckout } from '../check-in-out/useCheckout';
 import { useBooking } from './useBooking';
-import Spinner from '../../ui/Spinner';
+import { useDeleteBooking } from './useDeleteBooking';
+
+import Button from '../../ui/Button';
+import ButtonGroup from '../../ui/ButtonGroup';
+import ButtonText from '../../ui/ButtonText';
+import Heading from '../../ui/Heading';
+import Row from '../../ui/Row';
+import Tag from '../../ui/Tag';
+import BookingDataBox from './BookingDataBox';
+
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../ui/Spinner';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -22,11 +23,13 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const { booking, isLoading, error } = useBooking();
+  const { checkout, isCheckingOut } = useCheckout();
+  const { deleteBooking, isDeletingBookding } = useDeleteBooking();
   const navigate = useNavigate();
 
   const moveBack = useMoveBack();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isCheckingOut) return <Spinner />;
 
   //   const status = 'checked-in';
 
@@ -59,6 +62,30 @@ function BookingDetail() {
             }}
           >
             Checkin
+          </Button>
+        )}
+        {status === 'checked-in' && (
+          <Button
+            $variation='primary'
+            disabled={isCheckingOut}
+            onClick={() => {
+              checkout(bookingId);
+            }}
+          >
+            Check out
+          </Button>
+        )}
+        {(status === 'checked-out' || status === 'unconfirmed') && (
+          <Button
+            $variation='danger'
+            disabled={isDeletingBookding}
+            onClick={() => {
+              deleteBooking(bookingId, {
+                onSettled: () => navigate(-1),
+              });
+            }}
+          >
+            Delete booking
           </Button>
         )}
         <Button

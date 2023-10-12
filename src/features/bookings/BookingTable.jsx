@@ -5,10 +5,10 @@ import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
 import Pagination from '../../ui/Pagination';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 
 function BookingTable() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  //   const [searchParams, setSearchParams] = useSearchParams();
 
   const { bookings, isLoading, error, count } = useBookings();
 
