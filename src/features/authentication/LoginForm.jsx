@@ -4,7 +4,7 @@ import Form from '../../ui/Form';
 import Input from '../../ui/Input';
 import SpinnerMini from '../../ui/SpinnerMini';
 import FormRowVertical from '../../ui/FormRowVertical';
-import { useLogin } from './useAuth';
+import { useLogin } from './useLogin';
 
 function LoginForm() {
   // STATE
@@ -18,7 +18,15 @@ function LoginForm() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail('');
+          setPassword('');
+        },
+      },
+    );
   }
 
   return (

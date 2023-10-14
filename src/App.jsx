@@ -14,6 +14,7 @@ import Account from './pages/Account';
 import Login from './pages/Login';
 import Checkin from './pages/Checkin';
 import PageNotFound from './pages/PageNotFound';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +44,13 @@ function App() {
           />
 
           {/* APP LAYOUT */}
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route
               path='/dashboard'
               element={<Dashboard />}
