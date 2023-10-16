@@ -3,15 +3,22 @@ import Button from '../../ui/Button';
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
+import { useSignup } from './useSignup';
 
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
-  const { register, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  const { signup, isLoadingSignup } = useSignup();
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ email, password, fullName }) {
+    signup(
+      { email, password, fullName },
+      {
+        onSettled: () => reset(),
+      },
+    );
   }
 
   return (
@@ -26,6 +33,7 @@ function SignupForm() {
           {...register('fullName', {
             required: 'This field is required',
           })}
+          disabled={isLoadingSignup}
         />
       </FormRow>
 
@@ -43,6 +51,7 @@ function SignupForm() {
               message: 'Please provide a valid email address',
             },
           })}
+          disabled={isLoadingSignup}
         />
       </FormRow>
 
@@ -60,6 +69,7 @@ function SignupForm() {
               message: 'Password needs a minimum length of 8 characters',
             },
           })}
+          disabled={isLoadingSignup}
         />
       </FormRow>
 
@@ -75,6 +85,7 @@ function SignupForm() {
             validate: (value) =>
               value === getValues().password || 'Password need to match',
           })}
+          disabled={isLoadingSignup}
         />
       </FormRow>
 
@@ -86,7 +97,7 @@ function SignupForm() {
         >
           Cancel
         </Button>
-        <Button>Create new user</Button>
+        <Button disabled={isLoadingSignup}>Create new user</Button>
       </FormRow>
     </Form>
   );
