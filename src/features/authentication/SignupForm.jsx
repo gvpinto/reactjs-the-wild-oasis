@@ -94,6 +94,7 @@ function SignupForm() {
         <Button
           $variation='secondary'
           type='reset'
+          onClick={reset}
         >
           Cancel
         </Button>
