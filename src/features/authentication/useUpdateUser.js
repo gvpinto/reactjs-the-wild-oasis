@@ -11,10 +11,10 @@ export function useUpdateUser() {
     //   updateCurrentUser({ password, fullName, avatar }),
     mutationFn: updateCurrentUser,
     // TODO: had to assingn and empty object to user. Investigate it.
-    onSuccess: ({ user } = {}) => {
+    onSuccess: ({ user }) => {
       toast.success('User account successfully updated');
-      //   queryClient.setQueryData('user', user);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.setQueryData(['user'], user);
+      //   queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (err) => {
       toast.error(err.message);
