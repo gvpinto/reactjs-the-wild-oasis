@@ -16,7 +16,8 @@ export function useCheckout() {
       toast.success(`Booking #${data.id} successfully checked out`);
       // Invalidate all the queries, instead specifying exact queries
       queryClient.invalidateQueries({ active: true });
-      navigate('/bookings');
+      //   navigate('/bookings');
+      navigate('/dashboard');
     },
 
     onError: () => {
