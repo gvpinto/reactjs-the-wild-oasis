@@ -21,6 +21,12 @@ function BookingTable() {
 
   if (!bookings?.length || error) return <Empty resource='bookings' />;
 
+  // FOR ERROR TESTING
+  //   if (!bookings.length || error) return <Empty resource='bookings' />;
+
+  // FOR ERROR TESTING
+  //   if (isLoading) return <Spinner />;
+
   //   const bookings = [];
 
   return (
