@@ -14,6 +14,7 @@ import BookingDataBox from './BookingDataBox';
 
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../ui/Spinner';
+import Empty from '../../ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -30,6 +31,8 @@ function BookingDetail() {
   const moveBack = useMoveBack();
 
   if (isLoading || isCheckingOut) return <Spinner />;
+
+  if (!booking) return <Empty resource='booking' />;
 
   //   const status = 'checked-in';
 
